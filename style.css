@@ -1,0 +1,426 @@
+/* ==========================================================================
+   1. GENERELT DESIGN & DASHBOARD ELEMENTER
+   ========================================================================== */
+.wp-block-column {
+    background-color: #f4f4f4; /* Lys baggrund til kasserne */
+    padding: 20px;
+    border-radius: 10px;
+    border-top: 5px solid #1B4F8A; /* Donkey Power blå stribe i toppen */ 
+}
+
+/* Locked courses - bruges til at låse moduler baseret på niveau */
+.locked-course {
+    position: relative;
+    overflow: hidden;
+}
+
+.locked-course img {
+    filter: blur(4px) brightness(0.6);
+}
+
+.locked-course::after {
+    content: "🔒 Locked";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.45);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 20;
+    backdrop-filter: blur(2px);
+}
+
+.locked-course .tutor-card-body,
+.locked-course .tutor-card-footer {
+    opacity: 0.7;
+}
+
+
+/* ==========================================================================
+   2. TOPMENU (HEADER) - SOLID MØRKEBLÅ PÅ ALLE SKÆRME (MOBILE FIRST)
+   ========================================================================== */
+/* BASE STYLE: Tvinger Donkey Power farven på hoved-bjælkerne og tilføjer en mild divider */
+.ast-header-break-point .main-header-bar,
+.main-header-bar,
+.site-header,
+.ast-theme-header-custom-header-builder {
+    display: block !important;
+    background-color: #2f535e !important; 
+    background: #2f535e !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important; /* Meget mild, gennemsigtig hvid dividerlinje */
+}
+
+/* Sørg for at elementerne ligger på en fleksibel række på tværs af alle enheder */
+.site-header-primary-section-left, 
+.site-header-primary-section-right,
+.ast-header-sections-navigation,
+.main-navigation {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+}
+
+/* FJERN DE HVIDE KASSER: Sørg for at menupunkter ALTID er gennemsigtige og har hvid tekst */
+.main-header-bar a,
+.main-header-menu a,
+.main-header-menu .menu-item,
+.main-header-menu .menu-item a,
+.main-navigation .main-header-menu .menu-item {
+    color: #ffffff !important; /* Tvinger teksten til at være hvid */
+    background: transparent !important; /* Dræber de hvide kasser som standard! */
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+/* HOVER (Når musen holdes over) & ACTIVE (Den aktive side) */
+.main-header-menu .menu-item:hover > a,
+.main-header-menu .menu-item.current-menu-item > a,
+.main-header-menu .menu-item.current_page_item > a {
+    color: #5ce1e6 !important; /* Gør teksten flot cyanturkise ved hover */
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* DESKTOP SKÆRME: Elementernes opførsel over 768px */
+@media (min-width: 769px) {
+    .main-header-bar,
+    .main-header-menu, 
+    .main-header-bar .main-header-menu,
+    .ast-header-sections-navigation,
+    .ast-contained-layout {
+        background-color: #2f535e !important;
+        background: #2f535e !important;
+        box-shadow: none !important;
+    }
+
+    .main-header-menu {
+        display: flex !important;
+        flex-direction: row !important;
+        position: relative !important;
+        top: 0 !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* Skjul mobilmenu-ikonet (hamburgeren) på store skærme */
+    .ast-mobile-menu-trigger-wrapper {
+        display: none !important;
+    }
+}
+
+
+/* ==========================================================================
+   3. DONKEY POWER FOOTER - MOBILE FIRST & FLEKSIBELT DESIGN
+   ========================================================================== */
+/* Slet ALT indbygget luft, polstring og begrænsninger fra Astras ydre sektioner */
+.site-footer,
+.site-footer .ast-builder-footer-grid,
+.site-footer .site-footer-inner-wrap,
+.site-footer .ast-footer-row-container,
+.site-footer .ast-footer-row-inline {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-top: 0 !important;   
+    padding-bottom: 0 !important; 
+}
+
+/* BASE STYLE: Gælder for mobil og tablet (Strækker farven helt ud til kanterne) */
+.dp-footer {
+    width: 100vw !important; 
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
+    background-color: #2f535e !important; 
+    color: #ffffff !important;
+    padding-top: 40px !important;   
+    padding-bottom: 40px !important; 
+}
+
+/* Containeren til indholdet i footeren (Fleksibel Flexbox) */
+.dp-footer-container {
+    display: flex !important;
+    flex-direction: column !important; 
+    gap: 35px !important;              
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 25px !important;     
+    padding-right: 25px !important;
+}
+
+/* DESKTOP SKÆRME: Folder sig automatisk ud, når skærmen er over 768px */
+@media (min-width: 769px) {
+    .dp-footer {
+        padding-top: 60px !important;   
+        padding-bottom: 60px !important;
+    }
+
+    .dp-footer-container {
+        flex-direction: row !important; 
+        justify-content: space-between !important;
+        align-items: flex-start !important;
+        gap: 20px !important;
+        max-width: 1200px !important;   
+        margin: 0 auto !important;      
+        padding-left: 40px !important;
+        padding-right: 40px !important;
+    }
+    
+    .dp-footer-col {
+        flex: 1 !important; 
+    }
+}
+
+/* ==========================================================================
+   4. LÅST VERSION: DESTRUKTION AF SIDEBAR & BUND (SIKKER FOR KURSER)
+   ========================================================================== */
+
+/* 1. SKJUL ALT DER OVERHOVEDET LIGNER EN SIDEBAR / VENSTRE MENU (KUN PÅ DASHBOARD) */
+.tutor-dashboard .tutor-dashboard-left-sidebar,
+.tutor-dashboard .tutor-dashboard-sidebar,
+.tutor-dashboard .tutor-instructor-dashboard-sidebar,
+.tutor-dashboard .tutor-col-3, 
+.tutor-dashboard .tutor-col-md-3,
+.tutor-dashboard .tutor-dashboard-header-avatar,
+.tutor-dashboard .tutor-dashboard-header-info,
+.tutor-dashboard #tutor-dashboard-left-menu,
+.tutor-dashboard [class*="dashboard-sidebar"],
+.tutor-dashboard [class*="dashboard-left"] {
+    display: none !important;
+    width: 0 !important;
+    max-width: 0 !important;
+    flex: 0 0 0% !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Tving indholdssiden til at sprænge rammerne og fylde 100% bredde (KUN på dashboard) */
+.tutor-dashboard .tutor-dashboard-right-content,
+.tutor-dashboard .tutor-dashboard-content,
+.tutor-dashboard .tutor-instructor-dashboard-main-content,
+.tutor-dashboard .tutor-col-9,
+.tutor-dashboard .tutor-col-md-9 {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+    margin-left: 0 !important;
+}
+
+/* 2. SKJUL "NYT KURSUS" KNAPPEN OG TITLER (KUN på dashboard) */
+.tutor-dashboard .tutor-dashboard-header-button,
+.tutor-dashboard .tutor-btn-outline-primary,
+.tutor-dashboard .tutor-dashboard-content-title,
+.tutor-dashboard .tutor-instructor-dashboard-title,
+.tutor-dashboard .tutor-dashboard-header {
+    display: none !important;
+}
+
+/* 3. SKJUL DE 3 NEDERSTE UNDERVISER-KORT (KUN på dashboard) */
+.tutor-dashboard .tutor-dashboard-stats-container .tutor-card:nth-child(4),
+.tutor-dashboard .tutor-dashboard-stats-container .tutor-card:nth-child(5),
+.tutor-dashboard .tutor-dashboard-stats-container .tutor-card:nth-child(6),
+.tutor-dashboard .tutor-dashboard-stats-container .tutor-col-md-6:nth-child(4),
+.tutor-dashboard .tutor-dashboard-stats-container .tutor-col-md-6:nth-child(5),
+.tutor-dashboard .tutor-dashboard-stats-container .tutor-col-md-6:nth-child(6),
+.tutor-dashboard .tutor-dashboard-stat-total-students,
+.tutor-dashboard .tutor-dashboard-stat-total-courses,
+.tutor-dashboard .tutor-dashboard-stat-total-earnings,
+.tutor-dashboard .tutor-dashboard-stats-earning-status {
+    display: none !important;
+}
+
+/* 4. MÅLRETTET ANGREB PÅ GLOBALE MOBILMENUER / BUNDBARER (KUN på dashboard) */
+.tutor-dashboard .ast-mobile-popup-inner,
+.tutor-dashboard .ast-mobile-header-wrap,
+.tutor-dashboard #ast-mobile-header,
+.tutor-dashboard [id*="mobile-menu"],
+.tutor-dashboard [class*="mobile-nav"],
+.tutor-dashboard [class*="bottom-nav"],
+.tutor-dashboard [class*="sticky-menu"],
+.tutor-dashboard [class*="floating-menu"],
+.tutor-dashboard [class*="mobile-footer-menu"],
+.tutor-dashboard .site-main ~ ul,
+.tutor-dashboard .site-content ~ ul,
+.tutor-dashboard #page ~ ul,
+.tutor-dashboard footer ~ ul,
+.tutor-dashboard a[href*="my-courses"],
+.tutor-dashboard a[href*="question-answer"] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    height: 0 !important;
+}
+
+/* ==========================================================================
+   5. HVID BAGGRUND KUN PÅ KURSUS- OG LEKTIONS-SIDER
+   ========================================================================== */
+
+/* Vi rammer kursus-forsiderne og selve den indbyggede kursusafspiller (lektioner) */
+body.single-courses,
+body.tutor-single-lesson,
+body[class*="tutor-screen-single-lecture"],
+.tutor-single-course-sidebar-wrapper,
+.tutor-course-single-content-wrapper,
+.tutor-full-width-course-top,
+.tutor-course-player-page,
+.tutor-course-player-main-wrap {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+}
+
+/* Sørg for at alt brødtekst og overskrifter inde på kurserne bliver mørke og læselige på den hvide baggrund */
+body.single-courses .tutor-course-title,
+body.single-courses .tutor-course-content,
+body.tutor-single-lesson .tutor-lesson-title,
+body.tutor-single-lesson .tutor-lesson-content,
+.tutor-course-player-main-wrap p,
+.tutor-course-player-main-wrap h1,
+.tutor-course-player-main-wrap h2,
+.tutor-course-player-main-wrap h3 {
+    color: #1a1a1a !important;
+}
+
+/* Fred topmenuen og footeren (Sørg for at deres mørkeblå farve beholdes, selvom de er på en kursusside) */
+body.single-courses .main-header-bar,
+body.single-courses .site-header,
+body.single-courses .dp-footer,
+body.tutor-single-lesson .main-header-bar,
+body.tutor-single-lesson .site-header,
+body.tutor-single-lesson .dp-footer {
+    background-color: #2f535e !important;
+    background: #2f535e !important;
+}
+
+/* Sørg for at menulinks i topmenuen forbliver hvide på kursussiderne */
+body.single-courses .main-header-bar a,
+body.tutor-single-lesson .main-header-bar a {
+    color: #ffffff !important;
+}
+
+/* ==========================================================================
+   WCAG FIX: GIV ASTRAS FOOTER EN UNIK IDENTITET
+   ========================================================================== */
+#colophon {
+    display: block !important;
+}
+
+/* Vi sikrer, at jeres custom html-sektion indeni bare opfattes som indhold */
+.dp-footer {
+    display: block !important;
+}
+
+/* ==========================================================================
+   WCAG CONTRAST FIX: FOOTER LINKS
+   ========================================================================== */
+.dp-footer-link, 
+a.dp-footer-link {
+    color: #ffffff !important; /* Gør teksten 100% hvid for maksimal kontrast */
+    text-decoration: underline !important; /* Understregning gør det nemmere for farveblinde at se, det er et link */
+}
+
+.dp-footer-link:hover, 
+a.dp-footer-link:hover {
+    color: #5ce1e6 !important; /* Den flotte cyanturkise ved hover */
+}
+
+/* ==========================================================================
+   WCAG CONTRAST FIX: SKIP LINK
+   ========================================================================== */
+.skip-link.screen-reader-text:focus {
+    background-color: #fff176 !important; /* Skarp gul baggrund ved tastatur-fokus */
+    color: #000000 !important; /* Sort tekst for ekstrem høj kontrast ratio */
+    padding: 15px !important;
+    z-index: 999999 !important;
+}
+
+/* ==========================================================================
+   WCAG CONTRAST FIX: GO TO COURSES BUTTON
+   ========================================================================== */
+.wp-block-button__link {
+    color: #ffffff !important; /* Tvinger teksten til altid at være kridhvid */
+    background-color: #2f535e !important; /* Ændrer den kedelige sorte til jeres pæne Donkey Power blå */
+}
+
+.wp-block-button__link:hover {
+    background-color: #1b4f8a !important; /* Lidt mørkere blå ved hover */
+}
+
+
+/*styling af footer*/
+/* 1. BASE/MOBILE STYLE (Hovedreglerne - Mobile First) */
+    .dp-footer {
+        background-color: #2b4e58 !important;
+        color: #ffffff !important;
+        padding: 40px 20px !important;
+        font-family: sans-serif !important;
+    }
+
+    .dp-footer-container {
+        display: flex !important;
+        flex-direction: column !important; /* Stabler kolonnerne lodret på mobilen */
+        gap: 35px !important;            /* Giver luft mellem de stablede kolonner */
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+    }
+
+    .dp-footer-col {
+        width: 100% !important;
+    }
+
+    .dp-footer-title {
+        font-size: 20px !important;
+        font-weight: bold !important;
+        margin-bottom: 12px !important;
+        color: #ffffff !important;
+    }
+
+    .dp-footer-text {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+        color: #ffffff !important;
+        margin-bottom: 4px !important;
+    }
+
+    .dp-footer-link {
+        color: #5ce1e6 !important;
+        text-decoration: none !important;
+        font-size: 14px !important;
+        display: inline-block !important;
+        margin-top: 5px !important;
+    }
+
+    .dp-footer-link:hover {
+        text-decoration: underline !important;
+    }
+
+    .dp-footer-social svg {
+        fill: #5ce1e6 !important;
+        width: 24px !important;
+        height: 24px !important;
+        margin-top: 15px !important;
+    }
+
+    /* 2. DESKTOP SKÆRME (Når skærmen er over 768px bred) */
+    @media (min-width: 768px) {
+        .dp-footer {
+            padding: 60px 40px !important;
+        }
+        
+        .dp-footer-container {
+            flex-direction: row !important; /* Folder kolonnerne ud vandret */
+            justify-content: space-between !important;
+            align-items: flex-start !important;
+            gap: 20px !important;
+        }
+
+        .dp-footer-col {
+            flex: 1 !important; /* Sørger for at alle 5 kolonner deler pladsen ligeligt */
+        }
+    }
